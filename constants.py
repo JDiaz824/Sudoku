@@ -2,3 +2,7 @@
 
 WIDTH = 630
 HEIGHT = 700
+
+EASY = 30
+MEDIUM = 40
+HARD = 50
