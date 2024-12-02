@@ -18,7 +18,7 @@ class SudokuGenerator:
 	Parameters:
     row_length is the number of rows/columns of the board (always 9 for this project)
     removed_cells is an integer value - the number of cells to be removed
-
+jit
 	Return:
 	None
     '''
