@@ -3,23 +3,17 @@
 import pygame, sys
 from constants import *
 
-def main():
-    try:
-        pygame.init()
-        screen = pygame.display.set_mode((WIDTH, HEIGHT))
-        pygame.display.set_caption("Sudoku")
-        running = True
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    print(event.pos)
+pygame.init()
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Sudoku")
 
-                screen.fill("White")
-                pygame.display.flip()
-    finally:
-        pygame.quit()
+screen.fill(BG_COLOR)
 
-if __name__ == "__main__":
-    main()
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+    pygame.display.update()
+
