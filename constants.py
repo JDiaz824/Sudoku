@@ -2,4 +2,5 @@
 
 WIDTH = 630
 HEIGHT = 700
-BG_COLOR = "black"
+BG_COLOR = "white"
+LINE_COLOR = "black"
