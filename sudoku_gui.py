@@ -1,11 +1,12 @@
 # sudoku gui
 
 import pygame, sys
+from constants import *
 
 def main():
     try:
         pygame.init()
-        screen = pygame.display.set_mode((700, 700))
+        screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption("Sudoku")
         running = True
         while running:
