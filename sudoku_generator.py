@@ -95,7 +95,11 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def valid_in_box(self, row_start, col_start, num):
-        pass
+        for r in range(0, 3):
+            for c in range(0, 3):
+                if self.board[row_start + r][col_start + c] == num:
+                    return False
+        return True
     
     '''
     Determines if it is valid to enter num at (row, col) in the board
@@ -108,7 +112,10 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def is_valid(self, row, col, num):
-        pass
+        if self.valid_in_row(row, num) and self.valid_in_col(col, num) and self.valid_in_box((row // 3 * 3),
+                                                                                             (col // 3 * 3), num):
+            return True
+        return False
 
     '''
     Fills the specified 3x3 box with values
@@ -121,7 +128,13 @@ class SudokuGenerator:
 	Return: None
     '''
     def fill_box(self, row_start, col_start):
-        pass
+        for r in range(0, 3):
+            for c in range(0, 3):
+                while True:
+                    random_digit = int(1 + (random.random() * 9))
+                    if self.is_valid(row_start + r, col_start + c, random_digit):
+                        self.board[row_start + r][col_start + c] = random_digit
+                        break
     
     '''
     Fills the three boxes along the main diagonal of the board
@@ -131,7 +144,8 @@ class SudokuGenerator:
 	Return: None
     '''
     def fill_diagonal(self):
-        pass
+        for i in range(0, 7, 3):
+            self.fill_box(i, i)
 
     '''
     DO NOT CHANGE
@@ -197,7 +211,13 @@ class SudokuGenerator:
 	Return: None
     '''
     def remove_cells(self):
-        pass
+        for i in range(0, self.removed_cells):
+            while True:
+                random_row = int((random.random() * 9))
+                random_col = int((random.random() * 9))
+                if self.board[random_row][random_col] != 0:
+                    self.board[random_row][random_col] = 0
+                    break
 
 '''
 DO NOT CHANGE
