@@ -1,4 +1,4 @@
-# Sudoku-Project g
+# Sudoku-Project go
 
 ## Fork Repository Instructions
 ### Steps:
