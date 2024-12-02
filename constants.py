@@ -6,3 +6,5 @@ HEIGHT = 700
 EASY = 30
 MEDIUM = 40
 HARD = 50
+BG_COLOR = "white"
+LINE_COLOR = "black"
