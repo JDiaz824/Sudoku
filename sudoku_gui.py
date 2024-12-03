@@ -66,26 +66,92 @@ def draw_game_start(screen):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # Checks if mouse is on easy button
                 if easy_rectangle.collidepoint(event.pos):
-                    return # If the mouse is on easy button, returns to main
+                    draw_game_in_progress(screen) # If the mouse is on easy button, returns to main
                 elif medium_rectangle.collidepoint(event.pos):
-                    return
+                    draw_game_in_progress(screen)
                 elif hard_rectangle.collidepoint(event.pos):
-                    return
+                    draw_game_in_progress(screen)
         pygame.display.update()
+
+def draw_game_in_progress(screen):
+    # Initialized button font
+    button_font = pygame.font.Font(None, 40)
+
+    # Color background
+    screen.fill(BG_COLOR)
+
+    # Initialize and draw line grid
+    for r in range(210, 631, 210):
+        for thin_r in range(70, 630, 70):
+            pygame.draw.line(screen, "black", (0, thin_r), (630, thin_r), 2)
+        pygame.draw.line(screen, "black", (0, r), (630, r), 5)
+    for c in range(210, 630, 210):
+        for thin_c in range(70, 630, 70):
+            pygame.draw.line(screen, "black", (thin_c, 0), (thin_c, 630), 2)
+        pygame.draw.line(screen, "black", (c, 0), (c, 630), 5)
+
+    # Initialize buttons
+    # Initialize text first
+    reset_text = button_font.render("Reset", 0, (255, 255, 255))
+    restart_text = button_font.render("Restart", 0, (255, 255, 255))
+    exit_text = button_font.render("Exit", 0, (255, 255, 255))
+
+    # Initialize button background color and text
+    reset_surface = pygame.Surface((reset_text.get_size()[0] + 20, reset_text.get_size()[1] + 20))
+    reset_surface.fill(LINE_COLOR)
+    reset_surface.blit(reset_text, (10, 10))
+
+    restart_surface = pygame.Surface((restart_text.get_size()[0] + 20, restart_text.get_size()[1] + 20))
+    restart_surface.fill(LINE_COLOR)
+    restart_surface.blit(restart_text, (10, 10))
+
+    exit_surface = pygame.Surface((exit_text.get_size()[0] + 20, exit_text.get_size()[1] + 20))
+    exit_surface.fill(LINE_COLOR)
+    exit_surface.blit(exit_text, (10, 10))
+
+    # Initialize button rectangle
+    reset_rectangle = reset_surface.get_rect(
+        center=(WIDTH // 2 - 125, HEIGHT - 100))
+
+    restart_rectangle = restart_surface.get_rect(
+        center=(WIDTH // 2 + 5, HEIGHT - 100))
+
+    exit_rectangle = exit_surface.get_rect(
+        center=(WIDTH // 2 + 125, HEIGHT - 100))
+
+    # Draw buttons
+    screen.blit(reset_surface, reset_rectangle)
+    screen.blit(restart_surface, restart_rectangle)
+    screen.blit(exit_surface, exit_rectangle)
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                # Checks if mouse is on buttons
+                if reset_rectangle.collidepoint(event.pos):
+                    draw_game_won(screen) # TEMPORARY CALL
+                elif restart_rectangle.collidepoint(event.pos):
+                    draw_game_over(screen) # TEMPORARY CALL
+                elif exit_rectangle.collidepoint(event.pos):
+                    sys.exit()
+        pygame.display.update()
+
 
 def draw_game_won(screen):
     # Initialized title font
-    win_title_font = pygame.font.Font(None, 100)
+    win_font = pygame.font.Font(None, 100)
     button_font = pygame.font.Font(None, 70)
 
     # Color background
     screen.fill(BG_COLOR)
 
     # Initialize and draw title
-    title_surface = win_title_font.render("Game Won!", 0, LINE_COLOR)
-    title_rectangle = title_surface.get_rect(
+    win_surface = win_font.render("Game Won!", 0, LINE_COLOR)
+    win_rectangle = win_surface.get_rect(
         center = (WIDTH // 2, HEIGHT // 2 - 150))
-    screen.blit(title_surface, title_rectangle)
+    screen.blit(win_surface, win_rectangle)
 
     # Initialize buttons
     # Initialize text first
@@ -117,40 +183,34 @@ def draw_game_won(screen):
         pygame.display.update()
 
 def draw_game_over(screen):
-    end_title_font = pygame.font.Font(None, 100)
+    end_font = pygame.font.Font(None, 100)
     button_font = pygame.font.Font(None, 70)
 
     # Color background
     screen.fill(BG_COLOR)
 
     # Initialize and draw title
-    end_surface = end_title_font.render("Game Over :(", 0, LINE_COLOR)
+    end_surface = end_font.render("Game Over :(", 0, LINE_COLOR)
     end_rectangle = end_surface.get_rect(
         center=(WIDTH // 2, HEIGHT // 2 - 150))
-    screen.blit(title_surface, end_rectangle)
+    screen.blit(end_surface, end_rectangle)
 
     # Initialize buttons
     # Initialize text first
-    end_text = button_font.render("Restart", 0, (255, 255, 255))
+    restart_text = button_font.render("Restart", 0, (255, 255, 255))
 
 
     # Initialize button background color and text
-    start_surface = pygame.Surface((end_text.get_size()[0] + 20, end_text.get_size()[1] + 20))
-    start_surface.fill(LINE_COLOR)
-    start_surface.blit(end_text, (10, 10))
-    quit_surface = pygame.Surface((end_text.get_size()[0] + 20, end_text.get_size()[1] + 20))
-    quit_surface.fill(LINE_COLOR)
-    quit_surface.blit(end_text, (10, 10))
+    restart_surface = pygame.Surface((restart_text.get_size()[0] + 20, restart_text.get_size()[1] + 20))
+    restart_surface.fill(LINE_COLOR)
+    restart_surface.blit(restart_text, (10, 10))
 
     # Initialize button rectangle
-    start_rectangle = start_surface.get_rect(
-        center=(WIDTH // 2, HEIGHT // 2 + 150))
-    quit_rectangle = start_surface.get_rect(
+    restart_rectangle = restart_surface.get_rect(
         center=(WIDTH // 2, HEIGHT // 2 + 150))
 
     # Draw buttons
-    screen.blit(start_surface, start_rectangle)
-    screen.blit(quit_surface, quit_rectangle)
+    screen.blit(restart_surface, restart_rectangle)
 
     while True:
         for event in pygame.event.get():
@@ -158,11 +218,9 @@ def draw_game_over(screen):
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # Checks if mouse is on start button
-                if start_rectangle.collidepoint(event.pos):
-                    return  # If the mouse is on start button, returns to main
-                elif quit_rectangle.collidepoint(event.pos):
-                    # If the mouse is on the quit button, exits system
-                    sys.exit()
+                if restart_rectangle.collidepoint(event.pos):
+                    draw_game_start(screen)  # If the mouse is on restart button, returns to game start
+
         pygame.display.update()
 
 def main():
