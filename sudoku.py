@@ -1,10 +1,14 @@
 # Sudoku gui
 
 import pygame, sys
+from sudoku_board import Board
 from constants import *
+
+playing_board = None
 
 # Sudoku Main Menu
 def draw_game_start(screen):
+
     # Initialized title font
     start_title_font = pygame.font.Font(None, 80)
     select_mode_font = pygame.font.Font(None, 65)
@@ -66,10 +70,16 @@ def draw_game_start(screen):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # Checks if mouse is on easy button
                 if easy_rectangle.collidepoint(event.pos):
+                    global playing_board
+                    playing_board = Board(9, 9, screen, 0)
                     draw_game_in_progress(screen) # If the mouse is on easy button, returns to main
                 elif medium_rectangle.collidepoint(event.pos):
+                    global playing_board
+                    playing_board = Board(9, 9, screen, 1)
                     draw_game_in_progress(screen)
                 elif hard_rectangle.collidepoint(event.pos):
+                    global playing_board
+                    playing_board = Board(9, 9, screen, 2)
                     draw_game_in_progress(screen)
         pygame.display.update()
 
@@ -79,16 +89,16 @@ def draw_game_in_progress(screen):
 
     # Color background
     screen.fill(BG_COLOR)
-
+    playing_board.draw()
     # Initialize and draw line grid
-    for r in range(210, 631, 210):
-        for thin_r in range(70, 630, 70):
-            pygame.draw.line(screen, "black", (0, thin_r), (630, thin_r), 2)
-        pygame.draw.line(screen, "black", (0, r), (630, r), 5)
-    for c in range(210, 630, 210):
-        for thin_c in range(70, 630, 70):
-            pygame.draw.line(screen, "black", (thin_c, 0), (thin_c, 630), 2)
-        pygame.draw.line(screen, "black", (c, 0), (c, 630), 5)
+    # for r in range(210, 631, 210):
+    #     for thin_r in range(70, 630, 70):
+    #         pygame.draw.line(screen, "black", (0, thin_r), (630, thin_r), 2)
+    #     pygame.draw.line(screen, "black", (0, r), (630, r), 5)
+    # for c in range(210, 630, 210):
+    #     for thin_c in range(70, 630, 70):
+    #         pygame.draw.line(screen, "black", (thin_c, 0), (thin_c, 630), 2)
+    #     pygame.draw.line(screen, "black", (c, 0), (c, 630), 5)
 
     # Initialize buttons
     # Initialize text first
