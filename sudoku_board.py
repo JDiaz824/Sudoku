@@ -33,10 +33,10 @@ class Board:
         self.selected_cell = self.playing_board[0][0]
         #im assuming redraw the cell with a red outline here?
 
-    def click(self, y, x):
+    def click(self, x, y):
         cell_width = WIDTH/9
-        row = int(math.floor(x/cell_width))
-        col = int(math.floor(y/cell_width))
+        row = int(math.floor(y/cell_width))
+        col = int(math.floor(x/cell_width))
         if (row <= 8 & col <= 8):
             return (row, col)
         else:
