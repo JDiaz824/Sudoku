@@ -34,6 +34,7 @@ class Board:
         for row in range(len(self.playing_board)):
             for col in range(len(self.playing_board[row])):
                 self.playing_board[row][col].draw()
+        pygame.draw.rect(self.screen, "black", ((0, 630), (630, 700)), 0)
 
     def select(self, row, col):
         self.playing_board[0][0].selected = False

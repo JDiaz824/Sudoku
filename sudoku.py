@@ -100,21 +100,21 @@ def draw_game_in_progress(screen):
 
     # Initialize buttons
     # Initialize text first
-    reset_text = button_font.render("Reset", 0, (255, 255, 255))
-    restart_text = button_font.render("Restart", 0, (255, 255, 255))
-    exit_text = button_font.render("Exit", 0, (255, 255, 255))
+    reset_text = button_font.render("Reset", 0, "black")
+    restart_text = button_font.render("Restart", 0, "black")
+    exit_text = button_font.render("Exit", 0, "black")
 
     # Initialize button background color and text
     reset_surface = pygame.Surface((reset_text.get_size()[0] + 20, reset_text.get_size()[1] + 20))
-    reset_surface.fill(LINE_COLOR)
+    reset_surface.fill("white")
     reset_surface.blit(reset_text, (10, 10))
 
     restart_surface = pygame.Surface((restart_text.get_size()[0] + 20, restart_text.get_size()[1] + 20))
-    restart_surface.fill(LINE_COLOR)
+    restart_surface.fill("white")
     restart_surface.blit(restart_text, (10, 10))
 
     exit_surface = pygame.Surface((exit_text.get_size()[0] + 20, exit_text.get_size()[1] + 20))
-    exit_surface.fill(LINE_COLOR)
+    exit_surface.fill("white")
     exit_surface.blit(exit_text, (10, 10))
 
     # Initialize button rectangle
