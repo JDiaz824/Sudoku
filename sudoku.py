@@ -119,13 +119,13 @@ def draw_game_in_progress(screen):
 
     # Initialize button rectangle
     reset_rectangle = reset_surface.get_rect(
-        center=(WIDTH // 2 - 125, HEIGHT - 100))
+        center=(WIDTH // 2 - 125, HEIGHT - 35))
 
     restart_rectangle = restart_surface.get_rect(
-        center=(WIDTH // 2 + 5, HEIGHT - 100))
+        center=(WIDTH // 2 + 5, HEIGHT - 35))
 
     exit_rectangle = exit_surface.get_rect(
-        center=(WIDTH // 2 + 125, HEIGHT - 100))
+        center=(WIDTH // 2 + 125, HEIGHT - 35))
 
     # Draw buttons
     screen.blit(reset_surface, reset_rectangle)
