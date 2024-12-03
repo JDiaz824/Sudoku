@@ -64,21 +64,19 @@ def draw_game_start(screen):
     screen.blit(hard_surface, hard_rectangle)
 
     while True:
+        global playing_board
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # Checks if mouse is on easy button
                 if easy_rectangle.collidepoint(event.pos):
-                    global playing_board
                     playing_board = Board(9, 9, screen, 0)
                     draw_game_in_progress(screen) # If the mouse is on easy button, returns to main
                 elif medium_rectangle.collidepoint(event.pos):
-                    global playing_board
                     playing_board = Board(9, 9, screen, 1)
                     draw_game_in_progress(screen)
                 elif hard_rectangle.collidepoint(event.pos):
-                    global playing_board
                     playing_board = Board(9, 9, screen, 2)
                     draw_game_in_progress(screen)
         pygame.display.update()

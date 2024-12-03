@@ -13,14 +13,14 @@ class Board:
         removedCells = [EASY, MEDIUM, HARD]
         #creating the board, gathering the answered sudoku
         self.completed_board = SudokuGenerator(removedCells[difficulty], 9)
-        self.original_board = self.completedBoard.get_board()
+        self.original_board = self.completed_board.get_board()
         self.completed_board.fill_values()
 
         self.playing_board = []
         for row in range(width):
             self.playing_board.append([])
             for col in range(height):
-                cell = Cell(self.original_boardboard[row][col], row, col, self.screen)
+                cell = Cell(self.original_board[row][col], row, col, self.screen)
                 self.playing_board[row].append(cell)
 
         self.selected_cell = self.playing_board[0][0]
@@ -35,7 +35,9 @@ class Board:
                 self.playing_board[row][col].draw()
 
     def select(self, row, col):
-        self.selected_cell = self.playing_board[0][0]
+        self.playing_board[0][0].selected = False
+        self.selected_cell = self.playing_board[row][col]
+        self.selected_cell.selected = True
         #im assuming redraw the cell with a red outline here?
 
     def click(self, x, y):
