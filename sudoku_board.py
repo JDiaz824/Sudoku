@@ -2,6 +2,7 @@ from constants import *
 import pygame
 import math
 from sudoku_generator import SudokuGenerator
+from sudoku_cell import Cell
 
 class Board:
     def __init__(self, width, height, screen, difficulty):
@@ -10,18 +11,26 @@ class Board:
         self.screen = screen
 
         removedCells = [EASY, MEDIUM, HARD]
-        self.board = SudokuGenerator(9, removedCells[difficulty])
+        #creating the board, gathering the answered sudoku
+        self.completed_board = SudokuGenerator(removedCells[difficulty], 9)
+        self.original_board = self.completedBoard.get_board()
+        self.completed_board.fill_values()
 
-        self.board = SudokuGenerator.get_board()
-        self.original_board = SudokuGenerator.get_board()
-        self.selected_cell = (0, 0)
+        self.playing_board = []
+        for row in range(width):
+            self.playing_board.append([])
+            for col in range(height):
+                cell = Cell(self.original_boardboard[row][col], row, col, self.screen)
+                self.playing_board[row].append(cell)
+
+        self.selected_cell = self.playing_board[0][0]
 
     def draw(self):
         #pygame drawing to do after logic
         pass
 
     def select(self, row, col):
-        self.selected_cell = (row, col)
+        self.selected_cell = self.playing_board[0][0]
         #im assuming redraw the cell with a red outline here?
 
     def click(self, y, x):
@@ -34,46 +43,51 @@ class Board:
             return None
         
     def clear(self):
-        row = self.selected_cell[0]
-        col = self.selected_cell[1]
+        row = self.selected_cell.row
+        col = self.selected_cell.col
 
-        if (self.original_board[row][col].value == 0):
-            self.board[row][col].set_cell_value(0)
+        if (self.original_board[row][col] == 0):
+            self.playing_board[row][col].set_cell_value(0)
 
     def sketch(self, value):
-        row = self.selected_cell[0]
-        col = self.selected_cell[1]
-        if (self.original_board[row][col].value == 0):
-            self.board[row][col].set_sketched_value(value)
+        row = self.selected_cell.row
+        col = self.selected_cell.col
+        if (self.original_board[row][col] == 0):
+            self.playing_board[row][col].set_sketched_value(value)
 
     def place_number(self, value):
-        row = self.selected_cell[0]
-        col = self.selected_cell[1]
-        if (self.original_board[row][col].value == 0):
-            self.board[row][col].set_cell_value(value)
+        row = self.selected_cell.row
+        col = self.selected_cell.col
+        if (self.original_board[row][col] == 0):
+            self.playing_board[row][col].set_cell_value(value)
 
     def reset_to_original(self):
-        self.board = SudokuGenerator.get_board()
+        for row in range(len(self.playing_board)):
+            for col in range(len(self.playing_board[row])):
+                self.playing_board[row][col].set_cell_value(self.original_board[row][col])
+                self.playing_board[row][col].set_sketched_value(0)
     
     def is_full(self):
-        isFull = True
-        for row in self.board:
-            for cell in row:
-                if cell.value == 0:
-                    isFull = False
-        return isFull
+        for row in range(len(self.playing_board)):
+            for col in range(len(self.playing_board[row])):
+                if self.playing_board[row][col].value == 0:
+                    return False
+                
+        return True
     
     def find_empty(self):
-        row = 0
-        for row in self.board:
-            col = 0
-            for cell in row:
-                if cell.value == 0:
+        for row in range(len(self.playing_board)):
+            for col in range(len(self.playing_board[row])):
+                if self.playing_board[row][col].value == 0:
                     return (row, col)
-                col += 1
-            row += 1
-
-
+        return None
+    
+    def check_board(self):
+        for row in range(len(self.playing_board)):
+            for col in range(len(self.playing_board[row])):
+                if self.playing_board[row][col].value != self.completed_board[row][col]:
+                    return False
+        return True
 
         
 
