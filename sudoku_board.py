@@ -13,6 +13,7 @@ class Board:
         removedCells = [EASY, MEDIUM, HARD]
         #creating the board, gathering the answered sudoku
         self.completed_board = SudokuGenerator(removedCells[difficulty], 9)
+        self.completed_board.remove_cells()
         self.original_board = self.completed_board.get_board()
         self.completed_board.fill_values()
 
