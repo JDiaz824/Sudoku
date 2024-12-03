@@ -26,8 +26,13 @@ class Board:
         self.selected_cell = self.playing_board[0][0]
 
     def draw(self):
-        #pygame drawing to do after logic
-        pass
+        for r in range(210, 631, 210):
+            pygame.draw.line(self.screen, "black", (0, r), (630, r), 5)
+        for c in range(210, 630, 210):
+            pygame.draw.line(self.screen, "black", (c, 0), (c, 630), 5)
+        for row in range(len(self.playing_board)):
+            for col in range(len(self.playing_board[row])):
+                self.playing_board[row][col].draw()
 
     def select(self, row, col):
         self.selected_cell = self.playing_board[0][0]
