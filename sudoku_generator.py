@@ -22,11 +22,15 @@ class SudokuGenerator:
 	Return:
 	None
     '''
-    def __init__(self, row_length=9, removed_cells=30):
+    def __init__(self, removed_cells, row_length=9):
         self.removed_cells = removed_cells
         self.board = []
+        for r in range(row_length):
+            self.board.append([])
+            for c in range(row_length):
+                self.board[r].append(0)
         self.row_length = row_length
-        self.box_length = math.sqrt(row_length)
+        self.box_length = int(math.sqrt(row_length))
 
     '''
 	Returns a 2D python list of numbers which represents the board
@@ -35,7 +39,6 @@ class SudokuGenerator:
 	Return: list[list]
     '''
     def get_board(self):
-
         return self.board
 
 
@@ -47,7 +50,15 @@ class SudokuGenerator:
 	Return: None
     '''
     def print_board(self):
-        print(self.get_board())
+        for r in range(self.row_length):
+            for c in range(self.row_length):
+                if c%3 == 0 and c != 0:
+                    print("|", end=" ")
+                print(self.board[r][c], end=" ")
+            if (r+1) % 3 == 0 and r != 0 and r!=8:
+                print("\n---------------------")
+            else:
+                print()
 
 
     '''
@@ -62,7 +73,7 @@ class SudokuGenerator:
     '''
     def valid_in_row(self, row, num):
         for i in range(self.row_length):
-            if num in self.board[row][i]:
+            if num == self.board[row][i]:
                 return False
         return True
 
@@ -78,7 +89,7 @@ class SudokuGenerator:
     '''
     def valid_in_col(self, col, num):
         for i in range(self.row_length):
-            if num in self.board[i][col]:
+            if num == self.board[i][col]:
                 return False
         return True
 
@@ -241,3 +252,21 @@ def generate_sudoku(size, removed):
     sudoku.remove_cells()
     board = sudoku.get_board()
     return board
+
+
+
+
+
+
+#TROUBLESHOOTING & DEBUGGING
+
+# def main():
+#     sudoku = SudokuGenerator(20)
+#
+#     sudoku.fill_values()
+#     sudoku.remove_cells()
+#     sudoku.print_board()
+#
+#
+# if __name__ == "__main__":
+#     main()
