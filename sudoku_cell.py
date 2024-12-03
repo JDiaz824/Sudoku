@@ -24,5 +24,5 @@ class Cell:
             number_font = pygame.font.Font(None, 40)
             number_surface = number_font.render(str(self.value), 0, "Black")
             number_rectangle = number_surface.get_rect(
-                center=(600 // 2, 730 // 2 - 150))
+                center=(self.row*70 + 70/2, self.col*70 + 70/2))
             self.screen.blit(number_surface, number_rectangle)
