@@ -15,4 +15,10 @@ class Cell:
         self.sketeched_value = value
 
     def draw(self):
-        pass
+        pygame.draw.rect(self.screen, "black", ((self.row*70, self.col*70), (self.row*70 + 70, self.col*70 + 70)), 1)
+        if self.value != 0:
+            number_font = pygame.font.Font(None, 40)
+            number_surface = number_font.render(str(self.value), 0, "Black")
+            number_rectangle = number_surface.get_rect(
+                center=(600 // 2, 730 // 2 - 150))
+            self.screen.blit(number_surface, number_rectangle)
