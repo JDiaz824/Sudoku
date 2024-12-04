@@ -59,6 +59,7 @@ class Board:
 
         if (self.original_board.get_board()[row][col] == 0):
             self.playing_board[row][col].set_cell_value(0)
+            self.playing_board[row][col].set_sketched_value(0)
 
     def sketch(self, value):
         row = self.selected_cell.row
