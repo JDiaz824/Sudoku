@@ -150,6 +150,13 @@ def draw_game_in_progress(screen):
                     if selected_cell:
                         playing_board.select(selected_cell[0], selected_cell[1])
                         pygame.display.update()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_BACKSPACE:
+                    playing_board.clear()
+                if event.key == pygame.K_2:
+                    playing_board.sketch(2)
+                if event.key == pygame.K_RETURN:
+                    playing_board.place_number(playing_board.selected_cell.sketeched_value)
         playing_board.draw()
         pygame.display.update()
 
