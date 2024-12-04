@@ -14,9 +14,9 @@ class Board:
         #creating the board, gathering the answered sudoku
         self.original_board = SudokuGenerator(removedCells[difficulty], 9)
         self.original_board.fill_values()
+        self.original_board.print_board()
         self.completed_board = self.original_board.get_board()
         self.original_board.remove_cells()
-        self.original_board.print_board()
 
         self.playing_board = []
         for row in range(width):
