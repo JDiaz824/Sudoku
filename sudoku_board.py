@@ -71,6 +71,7 @@ class Board:
         col = self.selected_cell.col
         if (self.original_board.get_board()[row][col] == 0):
             self.playing_board[row][col].set_cell_value(value)
+            self.playing_board[row][col].set_sketched_value(0)
 
     def reset_to_original(self):
         for row in range(len(self.playing_board)):
