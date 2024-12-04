@@ -91,20 +91,20 @@ def draw_game_in_progress(screen):
     # Initialize and draw line grid
     # for r in range(210, 631, 210):
     #     for thin_r in range(70, 630, 70):
-    #         pygame.draw.line(screen, "black", (0, thin_r), (630, thin_r), 2)
-    #     pygame.draw.line(screen, "black", (0, r), (630, r), 5)
+    #         pygame.draw.line(screen, LINE_COLOR, (0, thin_r), (630, thin_r), 2)
+    #     pygame.draw.line(screen, LINE_COLOR, (0, r), (630, r), 5)
     # for c in range(210, 630, 210):
     #     for thin_c in range(70, 630, 70):
-    #         pygame.draw.line(screen, "black", (thin_c, 0), (thin_c, 630), 2)
-    #     pygame.draw.line(screen, "black", (c, 0), (c, 630), 5)
+    #         pygame.draw.line(screen, LINE_COLOR, (thin_c, 0), (thin_c, 630), 2)
+    #     pygame.draw.line(screen, LINE_COLOR, (c, 0), (c, 630), 5)
 
     # Initialize buttons
     # Initialize text first
-    reset_text = button_font.render("Reset", 0, "black")
-    restart_text = button_font.render("Restart", 0, "black")
-    exit_text = button_font.render("Exit", 0, "black")
+    reset_text = button_font.render("Reset", 0, LINE_COLOR)
+    restart_text = button_font.render("Restart", 0, LINE_COLOR)
+    exit_text = button_font.render("Exit", 0, LINE_COLOR)
 
-    pygame.draw.rect(screen, "black", ((0, 630), (630, 700)), 0)
+    pygame.draw.rect(screen, LINE_COLOR, ((0, 630), (630, 700)), 0)
     # Initialize button background color and text
     reset_surface = pygame.Surface((reset_text.get_size()[0] + 20, reset_text.get_size()[1] + 20))
     reset_surface.fill("white")
@@ -144,9 +144,9 @@ def draw_game_in_progress(screen):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # Checks if mouse is on buttons
                 if reset_rectangle.collidepoint(event.pos):
-                    draw_game_won(screen) # TEMPORARY CALL
+                    playing_board.reset_to_original()
                 elif restart_rectangle.collidepoint(event.pos):
-                    draw_game_over(screen) # TEMPORARY CALL
+                    draw_game_start(screen)
                 elif exit_rectangle.collidepoint(event.pos):
                     sys.exit()
                 else:

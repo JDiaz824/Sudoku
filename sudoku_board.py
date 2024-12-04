@@ -14,8 +14,18 @@ class Board:
         #creating the board, gathering the answered sudoku
         self.original_board = SudokuGenerator(removedCells[difficulty], 9)
         self.original_board.fill_values()
-        self.original_board.print_board()
-        self.completed_board = self.original_board.get_board()
+
+        # PRINTS ANSWER KEY FOR TESTING:
+        # print()
+        # self.original_board.print_board()
+
+        # Adds values to completed_board without linking it to original_board
+        self.completed_board = []
+        for row in range(width):
+            self.completed_board.append([])
+            for col in range(height):
+                self.completed_board[row].append(self.original_board.board[row][col])
+
         self.original_board.remove_cells()
 
         self.playing_board = []
@@ -30,9 +40,9 @@ class Board:
     def draw(self):
         pygame.draw.rect(self.screen, "white", ((0, 0), (630, 630)), 0)
         for r in range(210, 631, 210):
-            pygame.draw.line(self.screen, "black", (0, r), (630, r), 5)
+            pygame.draw.line(self.screen, LINE_COLOR, (0, r), (630, r), 5)
         for c in range(210, 630, 210):
-            pygame.draw.line(self.screen, "black", (c, 0), (c, 630), 5)
+            pygame.draw.line(self.screen, LINE_COLOR, (c, 0), (c, 630), 5)
         for row in range(len(self.playing_board)):
             for col in range(len(self.playing_board[row])):
                 self.playing_board[row][col].draw()
