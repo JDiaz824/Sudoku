@@ -133,7 +133,11 @@ def draw_game_in_progress(screen):
     screen.blit(restart_surface, restart_rectangle)
     screen.blit(exit_surface, exit_rectangle)
 
-    while True:
+    playing = True
+
+    while playing == True:
+        playing_board.draw()
+        pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
@@ -155,10 +159,30 @@ def draw_game_in_progress(screen):
                     playing_board.clear()
                 if event.key == pygame.K_2:
                     playing_board.sketch(2)
+                if event.key == pygame.K_3:
+                    playing_board.sketch(3)
+                if event.key == pygame.K_4:
+                    playing_board.sketch(4)
+                if event.key == pygame.K_5:
+                    playing_board.sketch(5)
+                if event.key == pygame.K_6:
+                    playing_board.sketch(6)
+                if event.key == pygame.K_7:
+                    playing_board.sketch(7)
+                if event.key == pygame.K_8:
+                    playing_board.sketch(8)
+                if event.key == pygame.K_9:
+                    playing_board.sketch(9)
+                if event.key == pygame.K_1:
+                    playing_board.sketch(1)
                 if event.key == pygame.K_RETURN:
                     playing_board.place_number(playing_board.selected_cell.sketeched_value)
-        playing_board.draw()
-        pygame.display.update()
+                    if playing_board.is_full():
+                        playing = False
+                        if playing_board.check_board():
+                            draw_game_won(screen)
+                        else:
+                            draw_game_over(screen)
 
 
 def draw_game_won(screen):
