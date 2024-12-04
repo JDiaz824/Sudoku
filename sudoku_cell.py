@@ -3,7 +3,7 @@ import pygame
 class Cell:
     def __init__(self, value, row, col, screen):
         self.value = value
-        self.sketeched_value = None
+        self.sketeched_value = 0
         self.row = row
         self.col = col
         self.screen = screen
@@ -31,7 +31,7 @@ class Cell:
                 center=(self.col*70 + 70/2, self.row*70 + 70/2))
             self.screen.blit(number_surface, number_rectangle)
 
-        if (self.sketeched_value is not None) and (self.sketeched_value != 0):
+        if (self.sketeched_value != 0):
             number_font = pygame.font.Font(None, 50)
             number_surface = number_font.render(str(self.sketeched_value), 0, (128, 128, 128))
             number_rectangle = number_surface.get_rect(
