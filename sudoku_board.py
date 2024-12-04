@@ -99,7 +99,3 @@ class Board:
                 if self.playing_board[row][col].value != self.completed_board[row][col]:
                     return False
         return True
-
-        
-
-    
