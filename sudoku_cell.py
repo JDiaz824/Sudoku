@@ -16,10 +16,14 @@ class Cell:
         self.sketeched_value = value
 
     def draw(self):
+        cell_width = 1
         cell_color = "black"
         if self.selected:
             cell_color = "red"
-        pygame.draw.rect(self.screen, cell_color, ((self.row*70, self.col*70), (self.row*70 + 70, self.col*70 + 70)), 1)
+            cell_width = 3
+        square = pygame.Rect(self.col*70, self.row*70, 70, 70)
+        pygame.draw.rect(self.screen, cell_color, square, cell_width)
+
         if self.value != 0:
             number_font = pygame.font.Font(None, 40)
             number_surface = number_font.render(str(self.value), 0, "Black")

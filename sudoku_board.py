@@ -27,6 +27,7 @@ class Board:
         self.selected_cell = self.playing_board[0][0]
 
     def draw(self):
+        pygame.draw.rect(self.screen, "white", ((0, 0), (630, 630)), 0)
         for r in range(210, 631, 210):
             pygame.draw.line(self.screen, "black", (0, r), (630, r), 5)
         for c in range(210, 630, 210):
@@ -34,20 +35,20 @@ class Board:
         for row in range(len(self.playing_board)):
             for col in range(len(self.playing_board[row])):
                 self.playing_board[row][col].draw()
-        pygame.draw.rect(self.screen, "black", ((0, 630), (630, 700)), 0)
 
     def select(self, row, col):
-        self.playing_board[0][0].selected = False
+        print(f"row: {row} col: {col}")
+        self.selected_cell.selected = False
         self.selected_cell = self.playing_board[row][col]
+        print(f"selected row: {self.selected_cell.row}")
         self.selected_cell.selected = True
-        self.selected_cell.draw()
         #im assuming redraw the cell with a red outline here?
 
     def click(self, x, y):
         cell_width = WIDTH/9
         row = int(math.floor(y/cell_width))
         col = int(math.floor(x/cell_width))
-        if (row <= 8 & col <= 8):
+        if (row <= 8 and col <= 8):
             return (row, col)
         else:
             return None

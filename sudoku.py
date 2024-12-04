@@ -104,6 +104,7 @@ def draw_game_in_progress(screen):
     restart_text = button_font.render("Restart", 0, "black")
     exit_text = button_font.render("Exit", 0, "black")
 
+    pygame.draw.rect(screen, "black", ((0, 630), (630, 700)), 0)
     # Initialize button background color and text
     reset_surface = pygame.Surface((reset_text.get_size()[0] + 20, reset_text.get_size()[1] + 20))
     reset_surface.fill("white")
@@ -144,6 +145,12 @@ def draw_game_in_progress(screen):
                     draw_game_over(screen) # TEMPORARY CALL
                 elif exit_rectangle.collidepoint(event.pos):
                     sys.exit()
+                else:
+                    selected_cell = playing_board.click(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
+                    if selected_cell:
+                        playing_board.select(selected_cell[0], selected_cell[1])
+                        pygame.display.update()
+        playing_board.draw()
         pygame.display.update()
 
 
