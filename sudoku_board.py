@@ -48,10 +48,9 @@ class Board:
                 self.playing_board[row][col].draw()
 
     def select(self, row, col):
-        if (self.original_board.get_board()[row][col] == 0):
-            self.selected_cell.selected = False
-            self.selected_cell = self.playing_board[row][col]
-            self.selected_cell.selected = True
+        self.selected_cell.selected = False
+        self.selected_cell = self.playing_board[row][col]
+        self.selected_cell.selected = True
         #im assuming redraw the cell with a red outline here?
 
     def click(self, x, y):

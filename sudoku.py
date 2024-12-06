@@ -134,6 +134,8 @@ def draw_game_in_progress(screen):
     screen.blit(exit_surface, exit_rectangle)
 
     playing = True
+    row = -1
+    col = -1
 
     while playing == True:
         playing_board.draw()
@@ -151,10 +153,36 @@ def draw_game_in_progress(screen):
                     sys.exit()
                 else:
                     selected_cell = playing_board.click(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
+                    row = selected_cell[0]
+                    col = selected_cell[1]
                     if selected_cell:
-                        playing_board.select(selected_cell[0], selected_cell[1])
+                        playing_board.select(row, col)
                         pygame.display.update()
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    if row > 0:
+                        row -= 1
+                        playing_board.select(row, col)
+                        pygame.display.update()
+                if event.key == pygame.K_DOWN:
+                    if row < 8:
+                        row += 1
+                        if col < 0:
+                            col = 0
+                        playing_board.select(row, col)
+                        pygame.display.update()
+                if event.key == pygame.K_LEFT:
+                    if col > 0:
+                        col -= 1
+                        playing_board.select(row, col)
+                        pygame.display.update()
+                if event.key == pygame.K_RIGHT:
+                    if col < 8:
+                        col += 1
+                        if row < 0:
+                            row = 0
+                        playing_board.select(row, col)
+                        pygame.display.update()
                 if event.key == pygame.K_BACKSPACE:
                     playing_board.clear()
                 if event.key == pygame.K_2:
